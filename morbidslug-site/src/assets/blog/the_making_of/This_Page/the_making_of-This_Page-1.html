@@ -1,0 +1,138 @@
+<div class="the_making_of page-one">
+  <h2 class="the_making_of--title">This App - how I made my CV - Part One</h2>
+  <section class="the_making_of--section introduction">
+    <p class="the_making_of--opening_paragraph">
+      Let it be known that I, certainly prior to, and likely followowing, building this app, do not have a good
+      eye for design. I would not consider my self a front-end programmer other than the fact I can write working
+      components for user interfaces, the design and location of those components shoudl usually be taken out of my hand.
+      This now being known, why did I chose to build a (pretty simple on the surface) web-app to showcase
+      my skills?
+    </p>
+    <p>
+      Most of the programming I have done lies behind the NDAs of my previous employers and I prefer to tinker
+      rather than build complete systems. Most of my tinkering does not end up on <a href="#">github</a> or
+      <a href="#">bitbucket</a>. Although my first proclamation was of my lack of skill in half of the skill
+      set considered neccessary for a front end programmer, I have a soft spot for strongly typed languages
+      for use on the web, <a href="#">Elm</a> in particular provided me with a joyous couple of years playing
+      around, it has a particularly nice and simple architecture for building web apps. Unfortunately as a
+      husband and father I have to provide something for my family and Elm is not widely used enough to justify
+      searching for my next career move working solely in it.
+    </p>
+    <p>
+      On reading up on the architecture of <a href="#">Angular</a> I reaslised that <i>each component has the same
+      architecture as an Elm app</i>. I was sold, I needed to make something in Anglar, and I had to put it somewhere
+      to be seen - what's the point in writing something for the web that nobody will see? So, that leads us to here.
+      The next logical question is, how well can a backender who believes they have no talent for HTML and css build
+      an app in a framework they, conceptually, like but have no experience in? Let's find out.
+    </p>
+    <p>
+      I am writing this as I build the app and I am doing it without knowledge of the tools and techniques that have
+      been built up over the past 30 years of the internet, that's a lot of brainfilling! I just decided I would dive
+      in and hope that the documentation and tutorial would provide me the answers I needed when I needed them. I've
+      justified this as showing any prospective employers how capable I am at doing things I have no idea how to do.
+    </p>
+  </section>
+  <section class="the_making_of--section what-i-learned">
+    <h2>What I learned and used to build this thing</h2>
+    <ul>
+      <li><a href="#">Angular</a>, to at least a novice level</li>
+      <li><a href="#">tilix</a>is an amazing terminal - quake mode is invaluable</li>
+      <li>css - an absolute tonne of it, omg.</li>
+    </ul>
+  </section>
+  <section class="the_making_of--section part-one">
+    <h2 class="the_making_of--subtitle">Stage One - What do I want my website to look like?</h2>
+    <p>
+      So, I need a navbar... that's not so bad, right? Everyone can make a navbar, what do they even do? There's a lot
+      of questions that I have not asked myself, UI is not a main concern when your focus is API contracts, parsing
+      strings, editing and using DSLs, optimising SQL queries and ensuring the structures you have built make sense for
+      the next unlucky human to come into contact with the code. Actual <i>users</i><sup>1</sup>? Using a thing I have
+      built?
+    </p>
+    <p>
+      Navbars have site names and logos and search bars and login buttons and options drop menus and avatars. Ok, I can
+      make pretend versions of those things while I build a site. Wanna see the first iteration? Well, I'm going to
+      show you anyway. It's not pretty but it does stick to the top of the page as you scroll, it's also a complete
+      overkill as it could be a simple html element and css but I'm writing this in Angular, damnit! Here's the component:
+    </p>
+    <code class="code--angular_component">
+      import { Component, OnInit, Input } from '@angular/core';
+
+      @Component({
+        selector: 'navbar',
+        template: `
+          &ltnav&gt
+            &ltspan class="nav-title"&gt{{navTitle}}&lt /span&gt
+            &ltdiv class="navigation"&gt
+              &ltinput/&gt &lt !-- this is a search box --&gt
+              &ltbutton class="login-button"&gtLogin&lt /button&gt
+              &ltspan class="option-button"&gt=&lt /span&gt
+              &ltspan class="logo"&gt^_^&lt /span&gt
+            &lt/div&gt
+          &lt/nav&gt
+        `,
+        styleUrls: ['./navbar.component.scss']
+      })
+      export class NavbarComponent implements OnInit {
+        @Input() navTitle: string;
+
+        constructor() { }
+
+        ngOnInit() {
+        }
+      }
+    </code>
+    <p>
+      This chunk of code shows one of the niceties of Angular, the <code class="code--inline">@Input()</code> decorator.
+      This is used to accept an argument passed to the app element by name. In the wrapping html file we have:
+    </p>
+    <code class="">
+      &ltnavbar [navTitle]="title"&gt&lt/navbar&gt
+    </code>
+    <p>
+      Introducing another lovely aspect of Angular, to insert an app or component of an app into an HTML document all
+      you need to do is add an element with the name of the selector you defined in the component (or app). In the
+      above line <code class="code--inline">"title"</code> is actually a varable injected into the wrapping HTML, so we
+      are passing down the variable down through the templates... it's components and templates all teh way down! I'm
+      really excited about what this says about the app's state but we're not there yet.
+    </p>
+    <p>
+      The side bar. Oh dear. This was an arduous process.
+    </p>
+    <p>
+      I like fundamentals, I prefer to write everything myself, because of this I avoid css frameworks like material
+      and bootstrap. I <i>like</i> css-flex and that was a problem when trying to make a sidebar that sits still.
+      Sidebars have links, everyone knows this and text is easy to add, but hours of trying css that didn't squish
+      it or render the following div underneath it. As always, the internet provides, and margins are as handy as
+      crowbars.
+    </p>
+    <img src="flex-all-the-things.png"/><img src="actually-dont.png">
+    <p>
+      In Angular each component gets it's own css. This is really nice, unless you are tweaking something that governs
+      the layout of the overall page. So, although the margins that hold the navbar, sidebar and the real content
+      that you are actually reading (why? I waffle <i>a lot</i>) I have dumped these style directives in
+      <code class="code--inline">src/app/app.component.css</code>, so you can see <i>why</i> I have the margins
+      set as they are (good idea, bad idea? You tell me...). The other sidebar/navbar/content styles live in their
+      respective .scss files.
+    </p>
+    <img src="good-idea-bad-idea.png" alt="">
+    <p>
+      I am a backend developer. I know, it may come as a shock to you if you have scrolled to this point without reading
+      the blog or looking at the way this page has been styled, but it's true. Something about 'CV' says 'put it on a desk
+      and have it look like paper'. Is this a badly thoguht out plan? Yes, paper doesn't scroll. Does this look like some
+      90's website that should have been redesigned or retired? Yes, but look at the <a href="#">code</a> that produced it!
+      I think it's pretty spiffy. Just tell me what images and colours you need and we are set. Thinking about hiring me
+      yet? Don't stop now... there's more, but before I get to writing down how I've done it (or even writing the code for
+      it...), here's a picture of the app so far. You may need a bucket, be brave.
+    </p>
+    <img src="app-sreenshot-1.png" alt="">
+  </section>
+  <section class="the_making_of--section part-two">
+
+  </section>
+
+  <section class="the_making_of--section glossary">
+    <sup>1</sup> I mean, non-technical users - not programmer users.
+  </section>
+
+</div>

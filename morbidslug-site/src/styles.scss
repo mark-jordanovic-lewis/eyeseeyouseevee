@@ -1,1 +1,27 @@
-/* You can add global styles to this file, and also import other style files */
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  width: 100%;
+}
+// fonts
+@font-face {
+  font-family: 'otsutome';
+  src: url('/assets/fonts/Othutome_font_ver2/OtsutomeFont_Ver2.ttf');
+}
+@font-face {
+  font-family: 'bilbo-fine';
+  src: url('/assets/fonts/bilbofine.ttf');
+}
+@font-face {
+  font-family: 'bilbo-regular';
+  src: url('/assets/fonts/bilboregular.ttf');
+}
+@font-face {
+  font-family: 'bilbo-bold';
+  src: url('/assets/fonts/bilbobold.ttf');
+}
+@font-face {
+  font-family: 'royal';
+  src: url('/assets/fonts/Royal.ttf');
+}

@@ -1,0 +1,60 @@
+nav {
+  // flex setup
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  position: fixed;
+  // size and colour
+  height: 2em;
+  width: 100%;
+  background-color: rgb(4, 23, 7);
+  // font settings
+  font-family: monospace;
+  font-weight: bold;
+  font-size: 2em;
+  color: rgb(168, 151, 133);
+}
+.nav-title {
+  align-self: left;
+  margin: 0.2em;
+  margin-left: 0.7em;
+}
+.navigation {
+  display: flex;
+  flex-direction: row;
+  align-self: right;
+  margin: 0.2em;
+  margin-right: 0.7em;
+}
+.login-button {
+  background-color: rgb(215, 124, 3);
+  color: #ffffff;
+  border-style: solid;
+  border-radius: 7px;
+  border-color: rgb(215, 124, 3);
+  border-width: 5px;
+  margin-left: 0.3em;
+}
+.option-button {
+  margin-left: 0.3em;
+}
+.logo {
+  animation: colorchange 10s infinite;
+  -webkit-animation: colorchange 10s infinite;
+  font-family: otsutome;
+  align-self: top;
+  font-size: 0.8em;
+}
+@keyframes colorchange
+{
+  0%   {color: rgb(144, 208, 7);}
+  50%  {color: rgb(17, 172, 33);}
+  100%   {color: rgb(144, 208, 7);}
+}
+@-webkit-keyframes colorchange
+{
+  0%   {color: rgb(144, 208, 7);}
+  50%  {color: rgb(17, 172, 33);}
+  100%   {color: rgb(144, 208, 7);}
+}

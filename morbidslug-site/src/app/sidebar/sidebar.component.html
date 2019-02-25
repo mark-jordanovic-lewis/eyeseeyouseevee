@@ -1,0 +1,9 @@
+<section class="side-bar">
+  <div class="links" *ngFor="let link of links">
+    <div class="link">
+      <span class="side-bar__link" [class.selected]="selection === link.name" (click)="clicked(link.name)">
+        <img src="{{ link.img }}" alt="{{ link.img }}"> <span class="link-name">{{ link.name }}</span>
+      </span> <!-- hide and show sub lists -->
+    </div>
+  </div>
+</section>

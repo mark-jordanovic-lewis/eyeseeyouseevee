@@ -1,0 +1,16 @@
+.desk {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 75%;
+  margin-top: 3em;
+  margin-bottom: 3em;
+  margin-left: 13em;
+  padding: 3em;
+  .page {
+    min-height: 80%;
+    color: black;
+    background-color: white;
+    margin-bottom: -3em;
+  }
+}

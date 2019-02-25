@@ -1,0 +1,270 @@
+<div class="the_making_of page-one">
+  <h2 class="the_making_of--title">This App - Bumps in the road - Part two</h2>
+  <section class="the_making_of--section introduction">
+    <p class="the_making_of--opening_paragraph">
+      I wanted to fill the sitemap structure of the components out before I actually added content (as I am making
+      the content as I go... like this blog entry). This meant having clickable navigation entites, displaying where
+      the user is on the site and loading the correct content for the page section. First I need to make an onclick
+      handler and have the sidebar display the selected state.
+    </p>
+    <p>
+      Angular's HTML based DSL has a tonne of features which are so intuitively named (once you grok their conventions)
+      that it makes writing templates a breeze. Here's the code to handle a click event:
+    </p>
+    <h4 class="code-snippet-title">sidebar.component.html</h4>
+    <code class="code--angular_component">
+      &lt div *ngFor="let link of links" &gt <br>
+        &lt span (click)="sidebarClickHandler(link)" [class.selected]="link === selected" &gt <br>
+          {{ link }} <br>
+        &lt /span &gt <br>
+      &lt /div &gt <br>
+    </code>
+    <h4 class="code-snippet-title">sidebar.component.ts</h4>
+    <code class="code--angular_component">
+      export class SidebarComponent implements OnInit { <br>
+        links: string[] = [ ... ]; <br>
+        selected: string = 'Blog'; <br>
+
+        sidebarClickHandler(link) { <br>
+          this.selected = link; <br>
+        } <br>
+      } <br>
+    </code>
+    <p>
+      I know, I should/could have used <code class="code--inline">ul</code> but I don't really have their behaviour down,
+      I'm not a registered HTML monkey yet. So, what does this tiny chunk of code do? In the HTML I've got two very common
+      Angular directives, a little logic and a click handler. The for loop declaration div references the attribute links
+      and <i>is rendered for each iteration</i>, meaning that it is the wrapping div for <i>each</i> element you are
+      rendering in the loop, not the element which wraps the entire loop. The click handler calls the function defined in
+      sidebar.component.ts, performing the assignment. On this change, the changes in the components DOM are re-rendered.
+      In our case this means that the logic in the <code>[class.selected]</code> changes value for two of the rendered
+      elements, adding and removing a css class based on the result (it currently turns the selected string blue).
+    </p>
+    <p>
+      My next step is to get the new state to be shared by the components which need it. Maybe I could have made
+      another architectural decision but nesting a content component inside a sidebar seems ugly, and having top level
+      display components in the app component seems natural so I need to share state between these. Data can be exchanged
+      between nested components in three ways in angular:
+    </p>
+    <code class="code--angular_component"> <!-- TODO: CHECK THIS -->
+      // To inject a value from the outer app <br>
+      &ltapp-name ("sub_component_varname")="component_varname"gt& <br>
+      // To bubble a variable change up to the containing apps <br>
+      $ltapp-name ["component_var_name"]="variableChangeEvent($event)"&gt <br>
+      // associating a variable in the component and nested component <br>
+      $ltapp-name [("sub_component_var_name")]="component_varname"&gt <br>
+    </code>
+    <p>
+      Bubbling a variable change event up into a containg app tkaes a little more work than the above line but all
+      you need to do to inject a variable from a wrapping app is to declare <code class="code--inline">@Input() sub_component_varname:type;</code>
+      and angular takes care of the rest. I want both the sidebar and content to know which page the user is or wants
+      to view. The selection is made on the sidebar currently. I will extend the app to include url routing in future
+      iterations but for now this will do. These directives seemed to give me everything I needed to share state
+      between the components that I needed.
+    </p>
+    <p>
+      As I mentioned in part one, Angular and Elm have a similar architecture. An Elm app exists in an event-loop
+      in which user, or program, driven events trigger recalculation of the program state which leads to re-rendering
+      of some or all of the DOM into a page's HTML. To share state between components in Elm you make a pipe to
+      the JS runtime for pushing a value throughb and one for recieving a value then any number of apps can subscribe
+      to the listening pipe and push through the pushing pipe. Having that idea in mind I tried to share some state
+      between non-nested components in Angular... it's a lot easier than in Elm.
+    </p>
+    <p>
+      My starting point is those basic directives. I needed to inject a default value into both sidebar and content
+      apps from app.component, bubble the click event of a sidebar element up into the app.component and pass the changed
+      value from app.component into the content component.
+    </p>
+    <img src="pic-of-bad-methodology.png"/>
+    <h4 class="code-snippet-title">app.component.ts</h4>
+    <code class="code--angular_component">
+      import { Component, OnInit, Input } from '@angular/core'; <br>
+      ... <br>
+      export class AppComponent implements OnInit { <br>
+        @Input() contentSelection: string = 'Blog';
+        ...
+        selectionBubblerHandler(link):void {
+          this.contentSelection = link;
+        }
+
+      } <br>
+    </code>
+    <h4 class="code-snippet-title">app.component.html</h4>
+    <code class="code--angular_component">
+      ... <br>
+      &lt sidebar [selection]="contentSelection" (selectionBubbler)="selectionBubblerHandler($event)"&gt&lt/sidebar&gt <br>
+      &ltcontent [content]="contentSelection"&gt&lt/content&gt <br>
+      ... <br>
+    </code>
+    <h4 class="code-snippet-title">content.component.ts</h4>
+    <code class="code--angular_component">
+      ... <br>
+      class ContentComponent implements OnInit { <br>
+        @Input() contentSelection: string = 'Blog'; <br>
+
+        selectionBubbleUpHandler(link: any): void { <br>
+          this.contentSelection = link; <br>
+        } <br>
+      } <br>
+    </code>
+    <h4 class="code-snippet-title">content.component.html</h4>
+    <code class="code--angular_component">
+      ...
+      export class ContentComponent implements OnInit { <br>
+        @Input content: string; <br>
+      } <br>
+    </code>
+    <h4 class="code-snippet-title">sidebar.component.ts</h4>
+    <code class="code--angular_component">
+      import { Component, OnInit, Input, Output } from '@angular/core'; <br>
+      ...
+      export class ContentComponent implements OnInit {
+        @Input selection: string;
+        @Output selectionBubbler = new EventEmitter<string>();
+      }
+    </code>
+    <p>
+      I could not get the content component to re-render! All the clicking and cursing and console.logging (yes, the
+      values were being happily passed around). Everything works, but I can't see it working. So much for my naive
+      belief that the fundamentals were enough, so onto StackOverflow for answers. It was at this moment that the
+      manjaro package manager told me that I had updates. I like a nice up to date system so, pre-occupied with my task,
+      I clicked 'DO IT' and moved on with seeking knowledge. (This is some heavy handed forshadowing, so I may as well
+      tell you - the update was not immediately helpful.)
+    </p>
+    <p class="haiku">
+      State rules everything.
+      Abhorrent global access.
+      Frontend adventures.
+    </p>
+    <p>
+      Oh StackOverflow, how I love thee. The solution to this is beautifully elegant, global state is stored in a service object,
+      any component that needs to know about any shared elements in the globally available state subscribes to that service and
+      recieves a message when the state is updated. A pretty nifty memoised postbox service. You can even compartmentalise shared
+      state to differnet services, just remember, no matter how many times you wrap up and ensure that global state is explicitely
+      utilised: it's still global, and that can cause a mess. Then again, as far as I can tell that it the realm of the frontend
+      so any frontenders reading this are likely unphased... here's some code.
+    </p>
+    <img src="pic-of-good-methodology.png"/>
+    <h4 class="code-snippet-title">shared-state.service.ts</h4>
+    <code class="code--angular_component">
+      import { Injectable } from '@angular/core';
+      import { BehaviorSubject } from 'rxjs';
+
+      @Injectable({ providedIn: 'root' })
+      export class SharedStateService {
+        public contentSelection: BehaviorSubject<string> = new BehaviorSubject<string>('blog');
+      }
+    </code>
+    <h4 class="code-snippet-title">content.component.ts</h4>
+    <code class="code--angular_component">
+      import { SharedStateService } from '../shared-state.service';
+      ...
+      export class ContentComponent implements OnInit {
+        ...
+        constructor(private sharedStateService: SharedStateService) {
+          this.sharedStateService
+              .contentSelection
+              .subscribe(value => {this.content = value});
+        }
+
+      }
+    </code>
+    <h4 class="code-snippet-title">sidebar.component.ts</h4>
+    <code class="code--angular_component">
+      import { SharedStateService } from '../shared-state.service';
+      ...
+      export class SidebarComponent implements OnInit {
+        ...
+        selection: string;
+
+        constructor(private sharedStateService: SharedStateService) {}
+
+        clicked(linkname: string) {
+          this.selection = linkname;
+          this.sharedStateService
+              .contentSelection
+              .next(linkname.toLowerCase().replace(/ /g, '-'));
+        }
+
+      }
+    </code>
+    <h4 class="code-snippet-title">sidebar.component.html</h4>
+    <code class="code--angular_component">
+      &lt section class="side-bar"&gt
+        &lt div class="links" *ngFor="let link of links"&gt
+          &lt div class="link"&gt
+            &lt span class="side-bar__link" [class.selected]="selection === link.name" (click)="clicked(link.name)"&gt
+              &lt img src="{{ link.img }}" alt="{{ link.img }}"&gt &lt span class="link-name"&gt{{ link.name }}&lt /span&gt
+            &lt /span&gt
+          &lt /div&gt
+        &lt /div&gt
+      &lt /section&gt
+    </code>
+    <p>
+      That's it! Now I am falling deeper in love with angular. Conceptually this is a great framework, even
+      when global state is in play one may safely compartmentalise the working of a component and treat
+      global state changes as though they were simply events that the component is reacting to without
+      being concerned about where that change originated. While I was rejoicing the ease into which my
+      frontend adventure had taken me... Disaster struck!
+    </p>
+    <h4 class="aside-title">Bad Habits and Distraction</h4>
+    <aside class="manjaro-issues">
+      <p>
+        I've been a linux user for a while, Debian was my main stay but for ease of install and not messing around with drivers
+        I had fallen into the Ubuntu trap. Having felt for a while that I was selling small parts of my soul to canonical for
+        simplicity I decided to pick up <a href="#">Arch</a>, which dragged me back about 15 years into installing debian hell,
+        so I grabbed a copy of <a href="#">manjaro</a> and set that up, it's lovely, try it out. Don't update from the GUI is
+        my current advice...
+      </p>
+      <p>
+        Long story short, an update installed an older version of libidn2 so all packatges relying on the existence of libidn2.so.4
+        were failing so I could only boot to single user mode. This isn't the first time I've had a package backdate a library module
+        though so off I went hunting for it in a .tar or .zip. I couldn't find it anywhere! It's ok though, looking in the manjaro
+        forums yeilded a few ideas. I found the previous package in my cache (yeah, I forgot that packages are cached for a few versions).
+        I opened it up, copied libidn2.so.4* into /usr/lib and ran a few pacman commands:
+      </p>
+      <code class="code--bash">
+        pacman -S libidn2 --force # I think this essentially links the files
+        pacman -Syu               # runs an update (which reinitialises network drivers)
+        pacman -S systemd         # link up systemd correctly after linking the lib
+        sudo pacman -Syyuu        # full system update.
+      </code>
+      <p>
+        Doesn't seem like too much work but applying fixes, rebooting and making more coffee can take time.
+      </p>
+    </aside>
+    <p>
+      Now I have my shared state I may as well do something with it, so I played with changing the colour of text in css
+      animations for about 45 minutes. Now I have a really ugly kaomoji button and know how to make rudimentary animations.
+      I also added icons to the sidebar and moved the text around so it all lines up nicely.
+    </p>
+    <p>
+      The content page should really show content, and that really should be dynamically served, I don't want to keep the entire HTML
+      for the page in memory while the user is navigating the site, and what I have is quite small so I decided to serve each
+      section separately, I mean, I need to show off an API in the end... To this end I generated a component for each of the
+      sidebar options and used <code class="code--inline">*ngSwitch</code> to define which of the apps should bve loaded onto
+      the content's page element.
+    </p>
+    <p>
+      <code class="code--inline">*ngSwitch</code> is a switch statement. Using attributes declared in your component one can decide to
+      run the code enclodes in the element:
+    </p>
+    <code class="code--angular_component">
+      &lt section class="desk"&gt
+        &lt div class="page"&gt
+          &lt div class="page-content" [ngSwitch]="content"&gt
+            &lt content-cv    *ngSwitchCase="'mark-j-l-cv'"&gt&lt /content-cv&gt
+            &lt content-code  *ngSwitchCase="'code'"&gt&lt /content-code&gt
+            &lt content-blog  *ngSwitchCase="'blog'"&gt&lt /content-blog&gt
+            &lt content-forum *ngSwitchCase="'forum'"&gt&lt /content-forum&gt
+            &lt content-comic *ngSwitchCase="'comic'"&gt&lt /content-comic&gt
+            &lt content-cv *ngSwitchDefault&gt&lt /content-cv&gt
+          &lt /div&gt
+        &lt /div&gt
+      &lt /section&gt
+    </code>
+    <p>
+      I now have the skeleton of an app. I need to fill it out with content (like this), style it and deploy it.
+    </p>
+  </section>
+</div>
