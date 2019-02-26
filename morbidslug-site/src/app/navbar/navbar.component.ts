@@ -4,7 +4,7 @@ import { Component, OnInit, Input } from '@angular/core';
   selector: 'navbar',
   template: `
     <nav>
-      <span class="nav-title">{{navTitle}}</span>
+      <a routerLink="/arrivals" class="nav-title">{{navTitle}}</a>
       <div class="navigation">
         <input/> <!-- this is a search box -->
         <button class="login-button"><span class="logo">ヽ(￣～￣　)ノ</span></button>
@@ -15,11 +15,10 @@ import { Component, OnInit, Input } from '@angular/core';
   styleUrls: ['./navbar.component.scss']
 })
 export class NavbarComponent implements OnInit {
-  @Input() navTitle: string;
+  navTitle: string = 'morbidslug';
 
-  constructor() { }
+  constructor() {}
 
-  ngOnInit() {
-  }
+  ngOnInit() {}
 
 }

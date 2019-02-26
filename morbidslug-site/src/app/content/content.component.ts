@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+import { Location } from '@angular/common';
+
 import { SharedStateService } from '../shared-state.service';
 
 @Component({
@@ -9,11 +12,18 @@ import { SharedStateService } from '../shared-state.service';
 export class ContentComponent implements OnInit {
   content: string;
 
-  constructor(private sharedStateService: SharedStateService) {
-    this.sharedStateService
-        .contentSelection
-        .subscribe(value => {this.content = value});
+  constructor(
+    private route: ActivatedRoute,
+    private router: Router,
+    private location: Location
+  ) {}
+
+  ngOnInit() {
+    this.content = this.route.snapshot.paramMap.get('slug');
+    this.router
+        .events
+        .subscribe(_ => this.content = this.route.snapshot.paramMap.get('slug'));
   }
 
-  ngOnInit() {}
+  goBack(): void { this.location.back(); }
 }

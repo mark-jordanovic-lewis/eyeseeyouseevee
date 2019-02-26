@@ -1,3 +1,6 @@
+.remove-stupid-space {
+  margin-top: -3em;
+}
 .desk {
   display: flex;
   align-items: center;
@@ -7,6 +10,7 @@
   margin-bottom: 3em;
   margin-left: 13em;
   padding: 3em;
+  padding-top: 6em;
   .page {
     min-height: 80%;
     color: black;

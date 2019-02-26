@@ -1,12 +1,18 @@
-<section class="desk">
-  <div class="page">
-    <div class="page-content" [ngSwitch]="content">
-      <content-cv    *ngSwitchCase="'mark-j-l-cv'"></content-cv>
-      <content-code  *ngSwitchCase="'code'"></content-code>
-      <content-blog  *ngSwitchCase="'blog'"></content-blog>
-      <content-forum *ngSwitchCase="'forum'"></content-forum>
-      <content-comic *ngSwitchCase="'comic'"></content-comic>
-      <content-cv *ngSwitchDefault></content-cv>
-    </div>
+<div class="remove-stupid-space">
+  <navbar></navbar>
+  <div class="main">
+    <sidebar></sidebar>
+    <section class="desk">
+      <div class="page">
+        <div class="page-content" [ngSwitch]="content">
+          <content-cv    *ngSwitchCase="'mark-j-l-cv'"></content-cv>
+          <content-code  *ngSwitchCase="'code'"></content-code>
+          <content-blog  *ngSwitchCase="'blog'"></content-blog>
+          <content-forum *ngSwitchCase="'forum'"></content-forum>
+          <content-comic *ngSwitchCase="'comic'"></content-comic>
+          <content-cv *ngSwitchDefault></content-cv>
+        </div>
+      </div>
+    </section>
   </div>
-</section>
+</div>

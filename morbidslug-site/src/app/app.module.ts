@@ -16,6 +16,8 @@ import { ContentForumComponent } from './content-forum/content-forum.component';
 import { ContentCodeComponent }  from './content-code/content-code.component';
 
 import { SafeHtmlPipe } from './safe-html.pipe';
+import { LandingPageComponent } from './landing-page/landing-page.component';
+import { SvgControlComponent } from './svg-control/svg-control.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +30,9 @@ import { SafeHtmlPipe } from './safe-html.pipe';
     ContentComicComponent,
     ContentForumComponent,
     ContentCodeComponent,
-    SafeHtmlPipe
+    SafeHtmlPipe,
+    LandingPageComponent,
+    SvgControlComponent
   ],
   imports: [
     BrowserModule,
