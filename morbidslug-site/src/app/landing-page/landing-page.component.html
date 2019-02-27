@@ -1,4 +1,13 @@
 <div class="page">
   <a routerLink="/content">Click to go on</a>
-  <svg-control [live]="circleGrid.live" (choke)="addCircle($event)"></svg-control>
+  <svg [attr.viewBox]="viewBox" [attr.id]="svg">
+    <svg:circle *ngFor="let circle of grid.live"
+                [attr.cx]="circle.cx"
+                [attr.cy]="circle.cy"
+                [attr.r]="grid.step"
+                class="svg-circle"/>
+                  <!-- [style.background-color]="circle.pattern" -->
+
+    <svg-control (choke)="changeGrid($event)"></svg-control>
+  </svg>
 </div>

@@ -1,5 +1,4 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { SafeHtmlPipe } from '../safe-html.pipe';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 
 @Component({
   selector: 'svg-control',
@@ -8,15 +7,13 @@ import { SafeHtmlPipe } from '../safe-html.pipe';
 })
 export class SvgControlComponent implements OnInit {
   @Output() choke: EventEmitter<boolean> = new EventEmitter<boolean>();
-  @Input() live = [];
-  radius: number = 71;
 
   constructor() {}
 
   ngOnInit() { this.revive(false); }
 
   revive(event): void {
-    setTimeout(() => { this.choke.emit(false); }, 700);
-    setTimeout(() => { this.revive(true); }, 500);
+    this.choke.emit(false);
+    setTimeout(() => { this.revive(true); }, Math.floor(Math.random()*1000)+500);
   }
 }
