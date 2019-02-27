@@ -1,12 +1,23 @@
 <div class="page">
   <a routerLink="/content">Click to go on</a>
   <svg [attr.viewBox]="viewBox" [attr.id]="svg">
+    <defs>
+      <pattern id="flowers" width="100%" height="100%" patternUnits="userSpaceOnUse">
+        <image width="100%" height="100%" xlink:href="/assets/images/patterns/flowers.jpg" preserveAspectRatio="none"/>
+      </pattern>
+      <pattern id="lines" width="100%" height="100%" patternUnits="userSpaceOnUse">
+        <image width="100%" height="100%" xlink:href="/assets/images/patterns/lines.jpg"  preserveAspectRatio="none"/>
+      </pattern>
+      <pattern id="triangles" width="100%" height="100%" patternUnits="userSpaceOnUse">
+        <image width="100%" height="100%" xlink:href="/assets/images/patterns/triangles.jpg"  preserveAspectRatio="none"/>
+      </pattern>
+    </defs>
     <svg:circle *ngFor="let circle of grid.live"
-                [attr.cx]="circle.cx"
-                [attr.cy]="circle.cy"
-                [attr.r]="grid.step"
-                class="svg-circle"/>
-                  <!-- [style.background-color]="circle.pattern" -->
+                [attr.cx]="circle.x"
+                [attr.cy]="circle.y"
+                [attr.r]="radius"
+                class="svg-circle"
+                [attr.stroke]="circle.pattern"/>
 
     <svg-control (choke)="changeGrid($event)"></svg-control>
   </svg>

@@ -1,5 +1,5 @@
 export class Grid {
   size: number;
   step: number;
-  live: { cx: number, cy: number }[];
+  live: { x: number, y: number, pattern: string }[];
 }
