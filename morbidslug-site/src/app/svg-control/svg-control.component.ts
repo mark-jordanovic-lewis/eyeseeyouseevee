@@ -14,6 +14,6 @@ export class SvgControlComponent implements OnInit {
 
   revive(event): void {
     this.choke.emit(false);
-    setTimeout(() => { this.revive(true); }, Math.floor(Math.random()*1000)+500);
+    setTimeout(() => { this.revive(true); }, Math.floor(Math.random()*500));
   }
 }

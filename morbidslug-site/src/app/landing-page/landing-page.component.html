@@ -1,24 +1,39 @@
 <div class="page">
-  <a routerLink="/content">Click to go on</a>
-  <svg [attr.viewBox]="viewBox" [attr.id]="svg">
-    <defs>
-      <pattern id="flowers" width="100%" height="100%" patternUnits="userSpaceOnUse">
-        <image width="100%" height="100%" xlink:href="/assets/images/patterns/flowers.jpg" preserveAspectRatio="none"/>
-      </pattern>
-      <pattern id="lines" width="100%" height="100%" patternUnits="userSpaceOnUse">
-        <image width="100%" height="100%" xlink:href="/assets/images/patterns/lines.jpg"  preserveAspectRatio="none"/>
-      </pattern>
-      <pattern id="triangles" width="100%" height="100%" patternUnits="userSpaceOnUse">
-        <image width="100%" height="100%" xlink:href="/assets/images/patterns/triangles.jpg"  preserveAspectRatio="none"/>
-      </pattern>
-    </defs>
-    <svg:circle *ngFor="let circle of grid.live"
-                [attr.cx]="circle.x"
-                [attr.cy]="circle.y"
-                [attr.r]="radius"
-                class="svg-circle"
-                [attr.stroke]="circle.pattern"/>
-
-    <svg-control (choke)="changeGrid($event)"></svg-control>
-  </svg>
+  <nav>
+    <a routerLink="/content">Click to go on</a>
+  </nav>
+  <div class="screen">
+    <svg [attr.viewBox]="viewBox" [attr.id]="svg">
+      <defs>
+        <pattern id="flowers" width="100%" height="100%" patternUnits="userSpaceOnUse">
+          <image width="100%" height="100%" xlink:href="/assets/images/patterns/flowers.jpg" preserveAspectRatio="none"/>
+        </pattern>
+        <pattern id="lines" width="100%" height="100%" patternUnits="userSpaceOnUse">
+          <image width="100%" height="100%" xlink:href="/assets/images/patterns/lines.jpg"  preserveAspectRatio="none"/>
+        </pattern>
+        <pattern id="triangles" width="100%" height="100%" patternUnits="userSpaceOnUse">
+          <image width="100%" height="100%" xlink:href="/assets/images/patterns/triangles.jpg"  preserveAspectRatio="none"/>
+        </pattern>
+        <pattern id="bullet_cluster" width="100%" height="100%" patternUnits="userSpaceOnUse">
+          <image width="100%" height="100%" xlink:href="/assets/images/patterns/bullet_cluster.jpg"  preserveAspectRatio="none"/>
+        </pattern>
+        <pattern id="code" width="100%" height="100%" patternUnits="userSpaceOnUse">
+          <image width="100%" height="100%" xlink:href="/assets/images/patterns/landing_code.png"  preserveAspectRatio="none"/>
+        </pattern>
+        <pattern id="dinosaur" width="100%" height="100%" patternUnits="userSpaceOnUse">
+          <image width="100%" height="100%" xlink:href="/assets/images/patterns/dino.png"  preserveAspectRatio="none"/>
+        </pattern>
+      </defs>
+      <svg:circle *ngFor="let circle of grid.live"
+                  [attr.cx]="circle.x"
+                  [attr.cy]="circle.y"
+                  [attr.r]="radius"
+                  class="svg-circle"
+                  [attr.stroke]="circle.pattern"
+                  [attr.fill]="circle.background"
+                  />
+      <svg-control (choke)="changeGrid($event)"></svg-control>
+    </svg>
+  </div>
+  <div class="overlay">AV-1</div>
 </div>

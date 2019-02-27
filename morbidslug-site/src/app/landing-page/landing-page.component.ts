@@ -14,14 +14,11 @@ class CoordSystem {
 export class LandingPageComponent implements OnInit {
   grid: Grid = { size: 500, step: 50, live: [] };
   viewBox: string = "0 0 "+this.grid.size+" "+this.grid.size;
-  coordinates: { x: number, y: number, pattern: string}[];
+  coordinates: { x: number, y: number, pattern: string, background: string }[];
   coordSystem: CoordSystem;
   radius = 24;
-  patterns = [
-    "url(#flowers)",
-    "url(#lines)",
-    "url(#triangles)"
-  ];
+  patterns = ["url(#flowers)", "url(#lines)", "url(#triangles)"];
+  backgrounds = ["url(#bullet_cluster)", "url(#code)", "url(#dinosaur)"]
 
   constructor() { }
 
@@ -65,7 +62,8 @@ export class LandingPageComponent implements OnInit {
     return {
       x: Math.abs((point.x*xMult*this.grid.step)%this.grid.size),
       y: Math.abs((point.y*yMult*this.grid.step)%this.grid.size),
-      pattern: this.patterns[Math.floor(Math.random()*this.patterns.length)]
+      pattern: this.patterns[Math.floor(Math.random()*this.patterns.length)],
+      background: this.backgrounds[Math.floor(Math.random()*this.backgrounds.length)],
     };
 
   }
