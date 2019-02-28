@@ -18,6 +18,7 @@ import { ContentCodeComponent }  from './content-code/content-code.component';
 import { SafeHtmlPipe } from './safe-html.pipe';
 import { LandingPageComponent } from './landing-page/landing-page.component';
 import { SvgControlComponent } from './svg-control/svg-control.component';
+import { CircleGridComponent } from './circle-grid/circle-grid.component';
 
 @NgModule({
   declarations: [
@@ -32,7 +33,8 @@ import { SvgControlComponent } from './svg-control/svg-control.component';
     ContentCodeComponent,
     SafeHtmlPipe,
     LandingPageComponent,
-    SvgControlComponent
+    SvgControlComponent,
+    CircleGridComponent
   ],
   imports: [
     BrowserModule,
