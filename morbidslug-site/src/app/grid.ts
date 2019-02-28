@@ -1,5 +1,19 @@
 export class Grid {
   size: number;
   step: number;
-  live: { x: number, y: number, pattern: string }[];
+  live: ShapeData[];
+}
+interface ShapeData {
+  x: number;
+  y: number;
+  pattern: string;
+  background: string;
+  filter: string;
+}
+export class Circle implements ShapeData {
+  x: number;
+  y: number;
+  pattern: string;
+  background: string;
+  filter: string;
 }
