@@ -19,7 +19,20 @@ import { SafeHtmlPipe } from './safe-html.pipe';
 import { LandingPageComponent } from './landing-page/landing-page.component';
 import { SvgControlComponent } from './svg-control/svg-control.component';
 import { CircleGridComponent } from './circle-grid/circle-grid.component';
+import { CommunicationsComponent } from './communications/communications.component';
+import { HttpClientModule } from '@angular/common/http';
 
+// FAKE DB
+import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
+import { StateStoreService }  from './state-store.service';
+
+HttpClientModule
+// The HttpClientInMemoryWebApiModule module intercepts HTTP requests
+// and returns simulated server responses.
+// Remove it when a real server is ready to receive requests.
+HttpClientInMemoryWebApiModule.forRoot(
+  StateStoreService, { dataEncapsulation: false }
+)
 @NgModule({
   declarations: [
     AppComponent,
@@ -34,7 +47,8 @@ import { CircleGridComponent } from './circle-grid/circle-grid.component';
     SafeHtmlPipe,
     LandingPageComponent,
     SvgControlComponent,
-    CircleGridComponent
+    CircleGridComponent,
+    CommunicationsComponent
   ],
   imports: [
     BrowserModule,

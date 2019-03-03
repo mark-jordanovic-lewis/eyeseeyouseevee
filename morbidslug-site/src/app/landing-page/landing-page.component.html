@@ -1,9 +1,6 @@
 <div class="page">
-  <nav>
-    <a routerLink="/content">Click to go on</a>
-  </nav>
   <div class="screen">
-    <circle-grid></circle-grid>
+    <circle-grid (clicked)="navigateTo(content)"></circle-grid>
   </div>
   <div class="overlay">AV-1</div>
 </div>

@@ -17,3 +17,7 @@ export class Circle implements ShapeData {
   background: string;
   filter: string;
 }
+
+export class CoordSystem {
+  unit: { x: number, y: number }[]
+}

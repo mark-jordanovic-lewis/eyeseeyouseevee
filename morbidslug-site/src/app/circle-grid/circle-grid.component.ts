@@ -1,29 +1,37 @@
-import { Component, OnInit } from '@angular/core';
-import { Grid, Circle } from '../grid';
-
-class CoordSystem {
-  unit: { x: number, y: number }[]
-}
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Grid, Circle, CoordSystem } from '../grid';
 
 @Component({
-  selector: 'app-circle-grid',
+  selector: 'circle-grid',
   templateUrl: './circle-grid.component.html',
   styleUrls: ['./circle-grid.component.scss']
 })
+
 export class CircleGridComponent implements OnInit {
+  @Output() clicked: EventEmitter<string> = new EventEmitter<string>()
   grid: Grid = { size: 500, step: 100, live: [] };
   viewBox: string = "0 0 "+this.grid.size+" "+this.grid.size;
-  coordinates: { x: number, y: number, pattern: string, background: string }[];
   coordSystem: CoordSystem;
   radius = 46;
   patterns = ["url(#flowers)", "url(#lines)", "url(#triangles)"];
-  backgrounds = ["url(#bullet_cluster)", "url(#code)", "url(#dinosaur)", "url(#green-cowhair)"]
+  backgrounds = ["url(#bullet_cluster)", "url(#code)", "url(#dinosaur)", "url(#green-cowhair)", "url(#hand)"]
   filters = ["url(#bacon)", "url(#ripping)", "url(#rocks)", "url(#cowhair)"]
 
   constructor() { }
 
   ngOnInit() {
     this.setCoordSystem();
+  }
+
+  circleClick(background: string): void {
+    var content = {
+      "url(#bullet_cluster)": "blog",
+      "url(#code)": "code",
+      "url(#dinosaur)": "mark-j-l-cv",
+      "url(#green-cowhair)": "forum",
+      "url(#hand)": "comic"
+    }[background]
+    this.clicked.emit(content);
   }
 
   changeGrid(bool: boolean): void {

@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Location } from '@angular/common';
 
-import { SharedStateService } from '../shared-state.service';
+import { MessageService } from '../message.service';
 
 @Component({
   selector: 'content',
@@ -15,14 +16,20 @@ export class ContentComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private router: Router,
-    private location: Location
-  ) {}
+    private location: Location,
+    private http: HttpClient,
+    private messageService: MessageService
+  ) { console.log("ContentComponent instantiated"); }
 
   ngOnInit() {
     this.content = this.route.snapshot.paramMap.get('slug');
     this.router
         .events
         .subscribe(_ => this.content = this.route.snapshot.paramMap.get('slug'));
+  }
+
+  private log(message: string) {
+    this.messageService.add(`HeroService: ${message}`);
   }
 
   goBack(): void { this.location.back(); }
