@@ -1,0 +1,1 @@
+{"rustc":11779505878581416876,"features":"[\"default\", \"lazy_static\", \"std\"]","target":6254487563143855663,"profile":11870183705523825133,"path":10694513706395522667,"deps":[["cfg-if v0.1.6","cfg_if",9843103086880409240],["lazy_static v1.3.0","lazy_static",17341513074944969672]],"local":[{"Precalculated":"0.6.5"}],"rustflags":[],"edition":"Edition2015"}

@@ -1,0 +1,1 @@
+{"rustc":11779505878581416876,"features":"[]","target":4337913760123494944,"profile":2365755905910602697,"path":1036222786711178230,"deps":[["hyper v0.12.25","hyper",14428179743882428976]],"local":[{"MtimeBased":[[1551657515,131234508],".fingerprint/authbox-f991c3cffcb0e300/dep-bin-authbox-f991c3cffcb0e300"]}],"rustflags":[],"edition":"Edition2018"}

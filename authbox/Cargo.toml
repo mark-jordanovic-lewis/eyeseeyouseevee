@@ -5,3 +5,5 @@ authors = ["Mark Jordanovic-Lewis <mark.4ndrew.lewis@gmail.com>"]
 edition = "2018"
 
 [dependencies]
+hyper = "0.12"
+futures = "0.1" 
