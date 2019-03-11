@@ -30,7 +30,7 @@ export class CircleGridComponent implements OnInit {
       "url(#dinosaur)": "mark-j-l-cv",
       "url(#green-cowhair)": "forum",
       "url(#hand)": "comic"
-    }[background]
+    }[background];
     this.clicked.emit(content);
   }
 

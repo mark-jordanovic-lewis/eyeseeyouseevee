@@ -19,7 +19,6 @@ export class CommunicationsComponent implements OnInit {
   }
 
   clearMessages(): void {
-    console.log("clearing");
     this.messageService.clear();
   }
 
