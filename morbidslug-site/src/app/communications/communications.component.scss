@@ -3,14 +3,14 @@
   z-index: 1000;
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: space-around;
   height: 100%;
   width: 100%;
   background-color: grey;
-  opacity: 0.2;
+  opacity: 0.4;
 
   .comms {
-    opacity: 0.4;
+    opacity: 0.7;
     background-color: #ffffff;
     colour: green;
   }

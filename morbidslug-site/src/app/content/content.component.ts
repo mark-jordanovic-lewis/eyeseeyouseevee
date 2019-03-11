@@ -19,7 +19,7 @@ export class ContentComponent implements OnInit {
     private location: Location,
     private http: HttpClient,
     private messageService: MessageService
-  ) { console.log("ContentComponent instantiated"); }
+  ) { this.log("instantiated"); }
 
   ngOnInit() {
     this.content = this.route.snapshot.paramMap.get('slug');
@@ -29,7 +29,7 @@ export class ContentComponent implements OnInit {
   }
 
   private log(message: string) {
-    this.messageService.add(`HeroService: ${message}`);
+    this.messageService.add(`ContentComponent: ${message}`);
   }
 
   goBack(): void { this.location.back(); }

@@ -8,11 +8,9 @@ import { State } from './state';
 // USE graphql for the api call app routing
 export class StateStoreService implements InMemoryDbService {
   createDb() {
-    const states = [
-      { id: 0, content: "", urls: []}
-    ];
+    const state: State = { id: 0, content: "Some Blank Content", urls: []};
     console.log("StateStoreService instantiated");
-    return {states};
+    return {state};
   }
 
   genId(): number {

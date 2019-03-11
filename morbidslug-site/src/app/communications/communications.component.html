@@ -1,6 +1,7 @@
 <div class="communications">
   <div class="comms">
-    <p>communications works!</p>
-    <p>Draw Messages here</p>
+    <div *ngFor="let message of messages">
+      {{ message }}
+    </div>
   </div>
 </div>
