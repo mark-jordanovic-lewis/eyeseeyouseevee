@@ -1,7 +1,8 @@
-<div class="communications">
-  <div class="comms">
-    <div *ngFor="let message of messages">
-      {{ message }}
+<div *ngIf="messages.length > 0">
+  <div class="communications">
+    <span class="closeMessages" (click)="clearMessages()">Close</span>
+    <div class="comms">
+      <div *ngFor="let message of messages">{{ message }}</div>
     </div>
   </div>
 </div>

@@ -4,7 +4,7 @@ import { BehaviorSubject } from 'rxjs';
 @Injectable({providedIn: 'root'})
 export class MessageService {
   private inbox: string[];
-  public message$: BehaviorSubject<string[]>;
+  public message$: BehaviorSubject<string[]> = new BehaviorSubject<string[]>(this.inbox);
 
 
   constructor() {
@@ -19,6 +19,6 @@ export class MessageService {
 
   clear() {
     this.inbox = [];
-    this.message$ = new BehaviorSubject<string[]>(this.inbox);
+    this.message$.next(this.inbox);
   }
 }

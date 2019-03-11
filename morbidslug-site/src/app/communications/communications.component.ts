@@ -18,6 +18,11 @@ export class CommunicationsComponent implements OnInit {
     this.log("instantiated");
   }
 
+  clearMessages(): void {
+    console.log("clearing");
+    this.messageService.clear();
+  }
+
   log(message): void {
     this.messageService.add(`CommunicationsComponent: ${message}`);
   }
