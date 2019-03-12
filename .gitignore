@@ -1,0 +1,9 @@
+# Rust authbox ignores (maybe rename to cookiejar?)
+/authbox/target
+/authbox/target/debug
+# Angular SPA ignores
+/morbidslug-site/node_modules
+# Elixir no_forum API and chat ignores
+/no_forum/.ssh
+/no_forum/deps
+/no_forum/_build
