@@ -1,0 +1,19 @@
+source 'https://rubygems.org'
+
+ruby '2.6.1'
+
+gem 'pg'
+gem 'irb'
+gem 'irbtools'
+gem 'awesome_print'
+
+# ======= #
+# Testing #
+# ======= #
+gem 'rspec'
+gem 'pry'
+
+
+
+# fp = DBFileParse.new
+# fp.read_db_config

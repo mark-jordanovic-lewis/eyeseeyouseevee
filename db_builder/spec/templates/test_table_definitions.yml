@@ -1,0 +1,20 @@
+---
+
+tables:
+  - name: _test_table_one
+    columns:
+      - name: id
+        type: SERIAL PRIMARY KEY
+      - name: columnOne
+        type: varchar(20)
+      - name: created_at
+        type: timestamp NOT NULL
+        default: CURRENT_TIMESTAMP
+  - name: _test_table_two
+    columns:
+      - name: id
+        type: SERIAL PRIMARY KEY
+      - name: columnOne
+        type: integer
+
+...
