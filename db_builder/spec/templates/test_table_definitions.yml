@@ -16,5 +16,9 @@ tables:
         type: SERIAL PRIMARY KEY
       - name: columnOne
         type: integer
+      - name: columnTwo
+        type: varchar(20)
+      - name: columnThree
+        type: varchar(20)
 
 ...

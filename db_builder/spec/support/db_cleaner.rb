@@ -3,9 +3,8 @@ require 'pg'
 class DBCleaner
 
   def initialize(options)
-    @table = options.delete(:table)
     @options = options
-    (validate_options && table) || raise_invalid_option_arg
+    validate_options || raise_invalid_option_arg
   end
 
   def remove_test_db

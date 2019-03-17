@@ -1,0 +1,44 @@
+---
+
+seeds:
+  - table: _test_table_one
+    columns:
+      - columnone
+    data:
+      - - 'one'
+      - - 'two'
+      - - 'three'
+      - - 'four'
+      - - 'five'
+  - table: _test_table_two
+    columns:
+      - columnone
+      - columntwo
+    data:
+      - - 1
+        - string
+      - - 2
+        - char_ary
+  - table: _test_table_two
+    columns:
+      - columntwo
+      - columnthree
+    data:
+      - - integer
+        - ping
+      - - float
+        - pong
+  - table: _test_table_two
+    columns:
+      - columnone
+      - columntwo
+      - columnthree
+    data:
+      - - 7
+        - timestamp
+        - beep
+      - - 11
+        - date
+        - beep
+
+...
