@@ -6,13 +6,13 @@ gem 'pg'
 gem 'irb'
 gem 'irbtools'
 gem 'awesome_print'
+gem 'logging'
 
 # ======= #
 # Testing #
 # ======= #
 gem 'rspec'
 gem 'pry'
-
 
 
 # fp = DBFileParse.new
