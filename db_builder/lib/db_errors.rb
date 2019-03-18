@@ -4,6 +4,7 @@ module DBErrors
   rescue PG::Error => err
     # this would be jsonified and sent to some logging system like kibana or logstash
     puts %Q!
+    PG::Error
       severity: #{err.result.error_field( PG::Result::PG_DIAG_SEVERITY )}
       db state: #{err.result.error_field( PG::Result::PG_DIAG_SQLSTATE )}
       message:

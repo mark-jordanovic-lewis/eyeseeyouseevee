@@ -2,7 +2,16 @@ source 'https://rubygems.org'
 
 ruby '2.6.1'
 
+# ======== #
+# Database #
+# ======== #
 gem 'pg'
+gem 'github-ldap'
+gem 'ladle', require: true
+
+# ======= #
+# General #
+# ======= #
 gem 'irb'
 gem 'irbtools'
 gem 'awesome_print'

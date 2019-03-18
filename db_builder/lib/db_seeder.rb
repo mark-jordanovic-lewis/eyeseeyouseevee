@@ -2,25 +2,27 @@ require 'pg'
 require_relative './db_errors'
 
 class DBSeeder
-  include DBErrors
-
   class << self
+    include DBErrors
+
     def execute(conn, query)
       validate_deps(conn)
-      ids = safely { connection.async_exec(%Q!BEGIN;#{query}COMMIT;!) }['id']
-      add_down_query_ids(ids)
+      ids = safely { conn.async_exec(%Q!BEGIN;\n#{query.up}\nCOMMIT;!) }
+      add_down_query_ids!(conn, query)
       puts "DB Seeded - queries down migration has been built."
     end
 
     private
 
-    attr_reader :connection, :query
-
-    def add_down_query_ids!(ids)
-      query.down = query.down
-        .split("\n")
-        .zip(ids)
-        .map { |(line, id)| line.gsub('<MISSING>', id) }
+    # only know the ids after the execution
+    def add_down_query_ids!(conn, query)
+      query.instance_variable_set(:@down,
+        query.down
+          .split("\n")
+          .zip(conn.async_exec('select ins_id from insert_ids;').values.flatten)
+          .map { |(line, id)| line.gsub('<MISSING>', id) }
+          .uniq
+          .join("\n"))
     end
 
     def validate_deps(conn)

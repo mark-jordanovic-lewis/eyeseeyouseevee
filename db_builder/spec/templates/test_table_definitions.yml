@@ -5,7 +5,7 @@ tables:
     columns:
       - name: id
         type: SERIAL PRIMARY KEY
-      - name: columnOne
+      - name: test_column_1
         type: varchar(20)
       - name: created_at
         type: timestamp NOT NULL
@@ -14,11 +14,11 @@ tables:
     columns:
       - name: id
         type: SERIAL PRIMARY KEY
-      - name: columnOne
+      - name: test_column_1
         type: integer
-      - name: columnTwo
+      - name: test_column_2
         type: varchar(20)
-      - name: columnThree
+      - name: test_column_3
         type: varchar(20)
 
 ...

@@ -3,42 +3,42 @@
 seeds:
   - table: _test_table_one
     columns:
-      - columnone
+      - test_column_1
     data:
-      - - 'one'
-      - - 'two'
-      - - 'three'
-      - - 'four'
-      - - 'five'
+      - - !str one
+      - - !str two
+      - - !str three
+      - - !str four
+      - - !str five
   - table: _test_table_two
     columns:
-      - columnone
-      - columntwo
+      - test_column_1
+      - test_column_2
     data:
       - - 1
-        - string
+        - !str string
       - - 2
-        - char_ary
+        - !str char_ary
   - table: _test_table_two
     columns:
-      - columntwo
-      - columnthree
+      - test_column_2
+      - test_column_3
     data:
-      - - integer
-        - ping
-      - - float
-        - pong
+      - - !str integer
+        - !str ping
+      - - !str float
+        - !str pong
   - table: _test_table_two
     columns:
-      - columnone
-      - columntwo
-      - columnthree
+      - test_column_1
+      - test_column_2
+      - test_column_3
     data:
       - - 7
-        - timestamp
-        - beep
+        - !str timestamp
+        - !str beep
       - - 11
-        - date
-        - beep
+        - !str date
+        - !str boop
 
 ...

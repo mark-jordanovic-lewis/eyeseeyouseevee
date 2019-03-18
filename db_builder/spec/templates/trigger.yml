@@ -1,0 +1,16 @@
+---
+
+triggers:
+  - name: tmp_id_table
+    function:
+      return: trigger
+      sql: |
+        create table if not exists insert_ids (ins_id integer);
+        insert into insert_ids (ins_id) values (new.id);
+        return(new);
+    trigger:
+      event: after insert on <TRIGGERTABLE>
+      execute: for each row execute procedure
+
+...
+# has to be a better way of keeping db clean of temp tables.

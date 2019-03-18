@@ -1,12 +1,12 @@
 require 'spec_helper'
 
 describe DBGenerator do
-  subject { described_class.new(connection, create_query) }
+  subject { described_class.new(connection, double(DBFileParse::Query, up: create_query)) }
 
   let(:connection) { PG::connect($pg_options) }
   let(:create_query) do
-    %Q!CREATE TABLE IF NOT EXISTS _test_table_one (id SERIAL PRIMARY KEY, columnOne varchar(20), created_at timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP);
-CREATE TABLE IF NOT EXISTS _test_table_two (id SERIAL PRIMARY KEY, columnOne integer, columnTwo varchar(20), columnThree varchar(20));!
+    %Q!CREATE TABLE IF NOT EXISTS _test_table_one (id SERIAL PRIMARY KEY, test_column_1 varchar(20), created_at timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP);
+CREATE TABLE IF NOT EXISTS _test_table_two (id SERIAL PRIMARY KEY, test_column_1 integer, test_column_2 varchar(20), test_column_3 varchar(20));!
   end
 
   context 'incorrect args' do
@@ -28,8 +28,8 @@ CREATE TABLE IF NOT EXISTS _test_table_two (id SERIAL PRIMARY KEY, columnOne int
       subject.create_tables
       columns = created_tables.map { |table| columns_of(table) }
       aggregate_failures do
-        expect(columns[0]).to eq %w(id columnone created_at)
-        expect(columns[1]).to eq %w(id columnone columntwo columnthree)
+        expect(columns[0]).to eq %w(id test_column_1 created_at)
+        expect(columns[1]).to eq %w(id test_column_1 test_column_2 test_column_3)
       end
     end
   end
