@@ -19,10 +19,11 @@ class DBSeeder
       query.instance_variable_set(:@down,
         query.down
           .split("\n")
-          .zip(conn.async_exec('select ins_id from insert_ids;').values.flatten)
-          .map { |(line, id)| line.gsub('<MISSING>', id) }
+          .zip(conn.async_exec('select ins_id, ins_table from insert_ids;').values)
+          .map { |(line, row)| line.gsub('<MISSING>', row[0]).gsub('<INSTABLE>', row[1]) }
           .uniq
           .join("\n"))
+      conn.async_exec("drop table if exists insert_ids;")
     end
 
     def validate_deps(conn)

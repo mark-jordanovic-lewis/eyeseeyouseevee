@@ -33,15 +33,17 @@ describe DBSeeder do
     end
 
     it 'updates the ids in the delete row query' do
-      expect(seeds.down).to eq %Q!DELETE FROM _test_table_one WHERE id IS 2;
-DELETE FROM _test_table_one WHERE id IS 1;
+      expect(seeds.down).to eq %Q!DELETE FROM _test_table_one WHERE id IS 1;
+DELETE FROM _test_table_one WHERE id IS 2;
 DELETE FROM _test_table_one WHERE id IS 3;
 DELETE FROM _test_table_one WHERE id IS 4;
-DELETE FROM _test_table_two WHERE id IS 5;
+DELETE FROM _test_table_one WHERE id IS 5;
 DELETE FROM _test_table_two WHERE id IS 1;
 DELETE FROM _test_table_two WHERE id IS 2;
 DELETE FROM _test_table_two WHERE id IS 3;
-DELETE FROM _test_table_two WHERE id IS 4;!
+DELETE FROM _test_table_two WHERE id IS 4;
+DELETE FROM _test_table_two WHERE id IS 5;
+DELETE FROM _test_table_two WHERE id IS 6;!
     end
   end
 end

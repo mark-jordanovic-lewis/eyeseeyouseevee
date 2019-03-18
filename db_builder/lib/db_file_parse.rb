@@ -22,7 +22,7 @@ class DBFileParse
     def create_seed_inserts(filename)
       insert = build_query filename, 'seeds' do |seed, queries|
         queries[0] << "INSERT INTO #{seed['table']} (#{seed['columns'].join(', ')}) VALUES #{values(seed['data'])} RETURNING id;"
-        seed['data'].each { |data| queries[1] << "DELETE FROM #{seed['table']} WHERE id IS <MISSING>;" }
+        seed['data'].each { |data| queries[1] << "DELETE FROM <INSTABLE> WHERE id IS <MISSING>;" }
       end
       insert.instance_variable_set(:@up, 'BEGIN;' << insert.up << 'COMMIT;')
       insert

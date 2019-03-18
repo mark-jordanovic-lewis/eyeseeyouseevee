@@ -38,17 +38,17 @@ INSERT INTO _test_table_two (test_column_2, test_column_3) VALUES ('integer','pi
 INSERT INTO _test_table_two (test_column_1, test_column_2, test_column_3) VALUES (7,'timestamp','beep'),(11,'date','boop') RETURNING id;COMMIT;!
     end
     let(:down_query) do
-      %Q!DELETE FROM _test_table_one WHERE id IS <MISSING>;
-DELETE FROM _test_table_one WHERE id IS <MISSING>;
-DELETE FROM _test_table_one WHERE id IS <MISSING>;
-DELETE FROM _test_table_one WHERE id IS <MISSING>;
-DELETE FROM _test_table_one WHERE id IS <MISSING>;
-DELETE FROM _test_table_two WHERE id IS <MISSING>;
-DELETE FROM _test_table_two WHERE id IS <MISSING>;
-DELETE FROM _test_table_two WHERE id IS <MISSING>;
-DELETE FROM _test_table_two WHERE id IS <MISSING>;
-DELETE FROM _test_table_two WHERE id IS <MISSING>;
-DELETE FROM _test_table_two WHERE id IS <MISSING>;!
+      %Q!DELETE FROM <INSTABLE> WHERE id IS <MISSING>;
+DELETE FROM <INSTABLE> WHERE id IS <MISSING>;
+DELETE FROM <INSTABLE> WHERE id IS <MISSING>;
+DELETE FROM <INSTABLE> WHERE id IS <MISSING>;
+DELETE FROM <INSTABLE> WHERE id IS <MISSING>;
+DELETE FROM <INSTABLE> WHERE id IS <MISSING>;
+DELETE FROM <INSTABLE> WHERE id IS <MISSING>;
+DELETE FROM <INSTABLE> WHERE id IS <MISSING>;
+DELETE FROM <INSTABLE> WHERE id IS <MISSING>;
+DELETE FROM <INSTABLE> WHERE id IS <MISSING>;
+DELETE FROM <INSTABLE> WHERE id IS <MISSING>;!
     end
 
     it 'generates the correct up and down queries' do
@@ -66,8 +66,8 @@ DELETE FROM _test_table_two WHERE id IS <MISSING>;!
       %Q!BEGIN;
         CREATE OR REPLACE FUNCTION tmp_id_table() RETURNS trigger AS $$
         BEGIN
-          create table if not exists insert_ids (ins_id integer);
-insert into insert_ids (ins_id) values (new.id);
+          create table if not exists insert_ids (ins_id integer, ins_table varchar(20));
+insert into insert_ids (ins_id, ins_table) values (new.id, TG_TABLE_NAME);
 return(new);
 
         END;

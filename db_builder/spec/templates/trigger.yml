@@ -5,8 +5,8 @@ triggers:
     function:
       return: trigger
       sql: |
-        create table if not exists insert_ids (ins_id integer);
-        insert into insert_ids (ins_id) values (new.id);
+        create table if not exists insert_ids (ins_id integer, ins_table varchar(20));
+        insert into insert_ids (ins_id, ins_table) values (new.id, TG_TABLE_NAME);
         return(new);
     trigger:
       event: after insert on <TRIGGERTABLE>
