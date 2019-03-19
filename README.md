@@ -35,7 +35,7 @@
     accessing the box externally
   - Simple way of throwing DB together and tearing them down - no I will not be using activerecord
     as every app will probably access the DB (which is going to create some fun problems), I will be exclusively using postgres and _everything_ will be defined in yaml, and, I don't want to start my world with `rails new` (it's going to be `reap new` eventually I hope).
-  - All the otehr cool things that happen after these thigns are built which I havn't planned yet.
+  - All the other cool things that happen after these thigns are built which I havn't planned yet.
 - Frameworks and packages usually contain a lot more cruft than useful code (unless you are basing
   your app completely around their functionality)
 - Smaller code means a smaller memory footprint and, unless you are a clever low level programmer
