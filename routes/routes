@@ -1,0 +1,24 @@
+#!/bin/bash
+
+nginxpid=/home/morb/Code/eyeseeyouseevee/routes/log/nginx.pid
+
+case "$1" in
+"run" )
+  nginx -c /home/morb/Code/eyeseeyouseevee/routes/nginx.conf
+  ;;
+"refresh" )
+  kill -HUP $( cat $nginxpid )
+  ;;
+"kill" )
+  kill -QUIT $( cat $nginxpid )
+  ;;
+"kill-workers")
+  kill -WINCH $( cat $nginxpid )
+  ;;
+"reset" )
+  kill -QUIT $( cat $nginxpid )
+  nginx -c /home/morb/Code/eyeseeyouseevee/routes/nginx.conf
+  ;;
+* )
+  ;;
+esac
