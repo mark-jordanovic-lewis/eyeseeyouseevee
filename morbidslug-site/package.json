@@ -4,7 +4,7 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
-    "build": "ng build",
+    "build": "ng build --base-href /",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e"
@@ -20,6 +20,7 @@
     "@angular/platform-browser-dynamic": "~7.2.0",
     "@angular/router": "~7.2.0",
     "angular-in-memory-web-api": "^0.8.0",
+    "angular2": "^2.0.0-beta.21",
     "compass-mixins": "^0.12.10",
     "core-js": "^2.5.4",
     "lodash": "^4.17.11",
