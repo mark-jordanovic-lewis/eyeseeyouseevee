@@ -5,6 +5,8 @@ A todo list of thinigs I need to implement followed by things that exist.
 # todo
 - installer so the user and deps can be built
   - add user creation to dockerfile when done
+  - add nginx user to groups with access to web files
+  - nginx user should be the one that sets up the docker box
 - fix 403 issue
 - serve to authBox on Ingress
   - strip and save nginx log headers on authBox ingress
