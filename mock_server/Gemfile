@@ -13,6 +13,7 @@ gem 'psych'
 # Scraping #
 # ======== #
 gem 'watir'
+gem 'headless'
 gem 'mechanize'
 
 # ========= #
