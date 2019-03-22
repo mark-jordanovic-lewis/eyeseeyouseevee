@@ -1,0 +1,21 @@
+source 'https://rubygems.org'
+
+ruby '2.6.1'
+
+# =========== #
+# Server Gems #
+# =========== #
+gem 'sinatra'
+gem 'passenger', require: "phusion_passenger/rack_handler"
+gem 'psych'
+
+# ======== #
+# Scraping #
+# ======== #
+gem 'watir'
+gem 'mechanize'
+
+# ========= #
+# Telecomms #
+# ========= #
+gem 'twilio'

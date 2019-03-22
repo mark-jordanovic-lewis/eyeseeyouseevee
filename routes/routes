@@ -4,7 +4,7 @@ nginxpid=/home/morb/Code/eyeseeyouseevee/routes/log/nginx.pid
 
 case "$1" in
 "run" )
-  nginx -c /home/morb/Code/eyeseeyouseevee/routes/nginx.conf
+  /opt/nginx_passenger/sbin/nginx -c /home/morb/Code/eyeseeyouseevee/routes/nginx.conf
   ;;
 "refresh" )
   kill -HUP $( cat $nginxpid )

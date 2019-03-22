@@ -24,3 +24,9 @@
 # --------------
 *.irbrc
 *.irb_history
+
+
+# any privaty things
+# ------------------
+*config.yml
+*secrets.yml
